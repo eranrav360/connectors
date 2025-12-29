@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English-Hebrew Flashcards</title>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>Function Words Quiz - English Practice</title>
     <style>
         * {
             margin: 0;
@@ -12,436 +11,250 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #1a4d2e;
-            --secondary: #e8b931;
-            --accent: #d4526e;
-            --bg: #f8f5f0;
-            --card-bg: #ffffff;
-            --text-dark: #2d3142;
-            --text-light: #6b7280;
-            --shadow: rgba(0, 0, 0, 0.1);
-        }
-
         body {
-            font-family: 'Crimson Pro', serif;
-            background: linear-gradient(135deg, #f8f5f0 0%, #e8dfd0 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
-            background-attachment: fixed;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(232, 185, 49, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(212, 82, 110, 0.08) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
+            direction: ltr;
         }
 
         .container {
             max-width: 900px;
-            width: 100%;
-            position: relative;
-            z-index: 1;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
         }
 
         .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
             text-align: center;
-            margin-bottom: 40px;
-            animation: slideDown 0.6s ease-out;
         }
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        h1 {
-            font-size: 3rem;
-            color: var(--primary);
+        .header h1 {
+            font-size: 2.5em;
             margin-bottom: 10px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
         }
 
-        .subtitle {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.9rem;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
         }
 
-        .score-board {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 40px;
-            animation: fadeIn 0.8s ease-out 0.2s backwards;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .score-item {
-            background: var(--card-bg);
-            padding: 20px 40px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px var(--shadow);
-            text-align: center;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .score-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px var(--shadow);
-        }
-
-        .score-item.known {
-            border-color: var(--primary);
-        }
-
-        .score-item.learning {
-            border-color: var(--accent);
-        }
-
-        .score-label {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-light);
-            margin-bottom: 8px;
-        }
-
-        .score-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        .card-container {
-            perspective: 1000px;
-            margin-bottom: 30px;
-            animation: fadeIn 1s ease-out 0.4s backwards;
-        }
-
-        .flashcard {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            transform-style: preserve-3d;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-        }
-
-        .flashcard.flipped {
-            transform: rotateY(180deg);
-        }
-
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        .content {
             padding: 40px;
-            box-shadow: 0 10px 40px var(--shadow);
         }
 
-        .card-front {
-            background: linear-gradient(135deg, var(--primary) 0%, #2d6a4f 100%);
-            color: white;
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
         }
 
-        .card-back {
-            background: var(--card-bg);
-            transform: rotateY(180deg);
-            border: 3px solid var(--secondary);
-        }
-
-        .word-type {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.8;
+        .section h2 {
+            color: #667eea;
             margin-bottom: 20px;
-        }
-
-        .english-word {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-align: center;
-            line-height: 1.2;
-        }
-
-        .card-front .english-word {
-            color: white;
-        }
-
-        .card-back .english-word {
-            color: var(--text-dark);
-            font-size: 2.5rem;
-        }
-
-        .hebrew-translation {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 30px;
-            font-weight: 600;
-            direction: rtl;
+            font-size: 1.8em;
         }
 
         .question {
-            font-family: 'Space Mono', monospace;
-            font-size: 1rem;
-            color: var(--text-light);
             margin-bottom: 25px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .option {
+            padding: 10px 20px;
+            background: #f0f0f0;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+
+        .option:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .option.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #4caf50;
+        }
+
+        .option.incorrect {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+        }
+
+        .input-area {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            margin-top: 10px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .input-area:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
 
         .button-group {
             display: flex;
-            gap: 20px;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
         }
 
         .btn {
-            font-family: 'Space Mono', monospace;
-            padding: 15px 40px;
+            padding: 15px 30px;
             border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 700;
+            border-radius: 8px;
+            font-size: 1.1em;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px var(--shadow);
+            font-weight: 600;
+            flex: 1;
+            min-width: 150px;
         }
 
-        .btn:hover {
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
             transform: translateY(-2px);
-            box-shadow: 0 6px 25px var(--shadow);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn-yes {
-            background: var(--primary);
+        .btn-secondary {
+            background: #6c757d;
             color: white;
         }
 
-        .btn-yes:hover {
-            background: #2d6a4f;
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
         }
 
-        .btn-no {
-            background: var(--accent);
+        .score-display {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .score-display h2 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
             color: white;
         }
 
-        .btn-no:hover {
-            background: #c04158;
+        .score-display p {
+            font-size: 1.3em;
         }
 
         .progress-bar {
             width: 100%;
             height: 8px;
-            background: rgba(0, 0, 0, 0.1);
+            background: #e0e0e0;
             border-radius: 10px;
+            margin-bottom: 20px;
             overflow: hidden;
-            margin-bottom: 30px;
-            animation: fadeIn 1s ease-out 0.6s backwards;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
-            transition: width 0.5s ease;
-            border-radius: 10px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
         }
 
-        .flip-hint {
-            text-align: center;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-top: 20px;
-            opacity: 0.7;
-        }
-
-        .results-screen {
-            background: var(--card-bg);
+        .category-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #764ba2;
+            color: white;
             border-radius: 20px;
-            padding: 50px;
-            box-shadow: 0 10px 40px var(--shadow);
-            text-align: center;
-            animation: scaleIn 0.6s ease-out;
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .results-title {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 30px;
-            font-weight: 700;
-        }
-
-        .results-stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .stat-box {
-            padding: 20px 30px;
-            border-radius: 12px;
-            background: var(--bg);
-        }
-
-        .stat-label {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 0.9em;
             margin-bottom: 10px;
         }
 
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        .words-to-review {
-            margin-top: 40px;
-            text-align: left;
-        }
-
-        .review-title {
-            font-size: 1.5rem;
-            color: var(--accent);
-            margin-bottom: 20px;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        .word-list {
-            columns: 2;
-            column-gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .word-item {
-            break-inside: avoid;
-            padding: 12px 20px;
-            background: var(--bg);
-            border-radius: 8px;
-            margin-bottom: 12px;
-            border-left: 4px solid var(--accent);
-        }
-
-        .word-item .english {
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 4px;
-        }
-
-        .word-item .hebrew {
-            color: var(--text-light);
-            direction: rtl;
-            font-size: 0.95rem;
-        }
-
-        .btn-restart {
-            background: var(--primary);
-            color: white;
-            margin-top: 20px;
-        }
-
-        .btn-restart:hover {
-            background: #2d6a4f;
-        }
-
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
+            .header h1 {
+                font-size: 1.8em;
             }
 
-            .flashcard {
-                height: 350px;
+            .content {
+                padding: 20px;
             }
 
-            .english-word {
-                font-size: 2.5rem;
-            }
-
-            .card-back .english-word {
-                font-size: 2rem;
-            }
-
-            .hebrew-translation {
-                font-size: 2rem;
-            }
-
-            .word-list {
-                columns: 1;
-            }
-
-            .button-group {
-                flex-direction: column;
-                width: 100%;
+            .section {
+                padding: 15px;
             }
 
             .btn {
-                width: 100%;
+                min-width: 100%;
             }
         }
     </style>
@@ -449,269 +262,372 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📚 Vocabulary Flashcards</h1>
-            <p class="subtitle">English → Hebrew</p>
+            <h1>📚 Function Words Quiz</h1>
+            <p>Master English Connectors: Sequencing, Adding, Contrast, Cause & Effect, Clarifying, and Emphasis</p>
         </div>
 
-        <div class="score-board">
-            <div class="score-item known">
-                <div class="score-label">Known</div>
-                <div class="score-value" id="knownScore">0</div>
+        <div class="content">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
             </div>
-            <div class="score-item learning">
-                <div class="score-label">Learning</div>
-                <div class="score-value" id="learningScore">0</div>
+
+            <!-- Part A: Fill in the Blanks -->
+            <div class="section">
+                <h2>Part A: Fill in the Blanks</h2>
+                <p style="margin-bottom: 20px; color: #666;">Choose the correct connector for each sentence.</p>
+
+                <!-- Sequencing Questions -->
+                <div class="question" data-answer="First">
+                    <span class="category-badge">Sequencing</span>
+                    <div class="question-text">
+                        1. _______, I woke up early. Then, I had breakfast. Finally, I went to work.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'First')">First</div>
+                        <div class="option" onclick="selectOption(this, 'However')">However</div>
+                        <div class="option" onclick="selectOption(this, 'Moreover')">Moreover</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question" data-answer="To begin">
+                    <span class="category-badge">Sequencing</span>
+                    <div class="question-text">
+                        2. The process is simple. _______, heat the water. Next, add the tea leaves. Afterwards, let it steep for five minutes.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'Therefore')">Therefore</div>
+                        <div class="option" onclick="selectOption(this, 'To begin')">To begin</div>
+                        <div class="option" onclick="selectOption(this, 'Although')">Although</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <!-- Adding Questions -->
+                <div class="question" data-answer="Moreover">
+                    <span class="category-badge">Adding</span>
+                    <div class="question-text">
+                        3. She speaks Spanish fluently. _______, she knows French and Italian.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'Moreover')">Moreover</div>
+                        <div class="option" onclick="selectOption(this, 'However')">However</div>
+                        <div class="option" onclick="selectOption(this, 'Therefore')">Therefore</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question" data-answer="Besides">
+                    <span class="category-badge">Adding</span>
+                    <div class="question-text">
+                        4. The hotel has a pool. _______, there's a gym and a spa.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'Nevertheless')">Nevertheless</div>
+                        <div class="option" onclick="selectOption(this, 'Besides')">Besides</div>
+                        <div class="option" onclick="selectOption(this, 'Thus')">Thus</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <!-- Contrast Questions -->
+                <div class="question" data-answer="However">
+                    <span class="category-badge">Contrast</span>
+                    <div class="question-text">
+                        5. I studied hard for the exam. _______, I didn't pass.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'Furthermore')">Furthermore</div>
+                        <div class="option" onclick="selectOption(this, 'However')">However</div>
+                        <div class="option" onclick="selectOption(this, 'Consequently')">Consequently</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question" data-answer="Even though">
+                    <span class="category-badge">Contrast</span>
+                    <div class="question-text">
+                        6. _______ it was raining, we decided to go hiking.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'Because')">Because</div>
+                        <div class="option" onclick="selectOption(this, 'Even though')">Even though</div>
+                        <div class="option" onclick="selectOption(this, 'Therefore')">Therefore</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <!-- Cause & Effect Questions -->
+                <div class="question" data-answer="Therefore">
+                    <span class="category-badge">Cause & Effect</span>
+                    <div class="question-text">
+                        7. She missed the bus. _______, she arrived late to the meeting.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'Therefore')">Therefore</div>
+                        <div class="option" onclick="selectOption(this, 'Although')">Although</div>
+                        <div class="option" onclick="selectOption(this, 'Furthermore')">Furthermore</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question" data-answer="Due to">
+                    <span class="category-badge">Cause & Effect</span>
+                    <div class="question-text">
+                        8. _______ the heavy traffic, we left early.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'Despite')">Despite</div>
+                        <div class="option" onclick="selectOption(this, 'Due to')">Due to</div>
+                        <div class="option" onclick="selectOption(this, 'Moreover')">Moreover</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <!-- Clarifying Questions -->
+                <div class="question" data-answer="such as">
+                    <span class="category-badge">Clarifying</span>
+                    <div class="question-text">
+                        9. I love outdoor activities, _______ hiking, swimming, and cycling.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'however')">however</div>
+                        <div class="option" onclick="selectOption(this, 'such as')">such as</div>
+                        <div class="option" onclick="selectOption(this, 'therefore')">therefore</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question" data-answer="In other words">
+                    <span class="category-badge">Clarifying</span>
+                    <div class="question-text">
+                        10. The project failed. _______, the team didn't communicate effectively.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'In other words')">In other words</div>
+                        <div class="option" onclick="selectOption(this, 'Nevertheless')">Nevertheless</div>
+                        <div class="option" onclick="selectOption(this, 'Additionally')">Additionally</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <!-- Emphasis Questions -->
+                <div class="question" data-answer="particularly">
+                    <span class="category-badge">Emphasis</span>
+                    <div class="question-text">
+                        11. The presentation was _______ impressive.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'however')">however</div>
+                        <div class="option" onclick="selectOption(this, 'particularly')">particularly</div>
+                        <div class="option" onclick="selectOption(this, 'therefore')">therefore</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question" data-answer="in fact">
+                    <span class="category-badge">Emphasis</span>
+                    <div class="question-text">
+                        12. She is not just talented; _______, she's one of the best in her field.
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 'in fact')">in fact</div>
+                        <div class="option" onclick="selectOption(this, 'although')">although</div>
+                        <div class="option" onclick="selectOption(this, 'besides')">besides</div>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- Part B: Sentence Combination -->
+            <div class="section">
+                <h2>Part B: Sentence Combination</h2>
+                <p style="margin-bottom: 20px; color: #666;">Combine the sentences using an appropriate connector.</p>
+
+                <div class="question">
+                    <span class="category-badge">Sequencing</span>
+                    <div class="question-text">
+                        1. Combine: "I finished my homework." + "I watched TV." + "I went to bed."
+                    </div>
+                    <textarea class="input-area" placeholder="Type your answer here..." rows="3"></textarea>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question">
+                    <span class="category-badge">Adding</span>
+                    <div class="question-text">
+                        2. Combine: "The restaurant serves Italian food." + "The restaurant serves Mediterranean dishes."
+                    </div>
+                    <textarea class="input-area" placeholder="Type your answer here..." rows="3"></textarea>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question">
+                    <span class="category-badge">Contrast</span>
+                    <div class="question-text">
+                        3. Combine: "The movie received bad reviews." + "It became a box office success."
+                    </div>
+                    <textarea class="input-area" placeholder="Type your answer here..." rows="3"></textarea>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="question">
+                    <span class="category-badge">Cause & Effect</span>
+                    <div class="question-text">
+                        4. Combine: "The roads were icy." + "Many accidents occurred."
+                    </div>
+                    <textarea class="input-area" placeholder="Type your answer here..." rows="3"></textarea>
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="checkAnswers()">✓ Check Answers</button>
+                <button class="btn btn-secondary" onclick="resetQuiz()">↻ Reset Quiz</button>
+            </div>
+
+            <!-- Score Display -->
+            <div class="score-display" id="scoreDisplay">
+                <h2 id="scoreText">Your Score: 0/12</h2>
+                <p id="scoreMessage">Keep practicing!</p>
             </div>
         </div>
-
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-
-        <div id="cardArea"></div>
     </div>
 
     <script>
-        const words = [
-            // Original words
-            { english: "crucial", type: "adj", hebrew: "מכריע, חיוני" },
-            { english: "phrase", type: "n", hebrew: "ביטוי" },
-            { english: "relatively", type: "adv", hebrew: "יחסית" },
-            { english: "elementary", type: "adj", hebrew: "יסודי" },
-            
-            // 1. Sequencing Connectors
-            { english: "first", type: "Sequencing", hebrew: "ראשית" },
-            { english: "firstly", type: "Sequencing", hebrew: "ראשית" },
-            { english: "second", type: "Sequencing", hebrew: "שנית" },
-            { english: "secondly", type: "Sequencing", hebrew: "שנית" },
-            { english: "third", type: "Sequencing", hebrew: "שלישית" },
-            { english: "then", type: "Sequencing", hebrew: "אז, לאחר מכן" },
-            { english: "next", type: "Sequencing", hebrew: "לאחר מכן" },
-            { english: "after that", type: "Sequencing", hebrew: "אחרי זה" },
-            { english: "afterwards", type: "Sequencing", hebrew: "לאחר מכן" },
-            { english: "finally", type: "Sequencing", hebrew: "לבסוף" },
-            { english: "lastly", type: "Sequencing", hebrew: "לבסוף" },
-            { english: "eventually", type: "Sequencing", hebrew: "בסופו של דבר" },
-            { english: "meanwhile", type: "Sequencing", hebrew: "בינתיים" },
-            { english: "simultaneously", type: "Sequencing", hebrew: "במקביל, בו זמנית" },
-            { english: "previously", type: "Sequencing", hebrew: "בעבר, קודם לכן" },
-            
-            // 2. Adding Connectors
-            { english: "and", type: "Adding", hebrew: "ו" },
-            { english: "also", type: "Adding", hebrew: "גם" },
-            { english: "furthermore", type: "Adding", hebrew: "יתר על כן" },
-            { english: "moreover", type: "Adding", hebrew: "יתרה מזאת" },
-            { english: "in addition", type: "Adding", hebrew: "בנוסף" },
-            { english: "additionally", type: "Adding", hebrew: "בנוסף" },
-            { english: "besides", type: "Adding", hebrew: "חוץ מזה" },
-            { english: "as well as", type: "Adding", hebrew: "כמו גם" },
-            { english: "not only... but also", type: "Adding", hebrew: "לא רק... אלא גם" },
-            { english: "along with", type: "Adding", hebrew: "יחד עם" },
-            { english: "together with", type: "Adding", hebrew: "ביחד עם" },
-            
-            // 3. Contrast Connectors
-            { english: "but", type: "Contrast", hebrew: "אבל" },
-            { english: "however", type: "Contrast", hebrew: "אולם, עם זאת" },
-            { english: "nevertheless", type: "Contrast", hebrew: "בכל זאת" },
-            { english: "nonetheless", type: "Contrast", hebrew: "בכל זאת" },
-            { english: "although", type: "Contrast", hebrew: "למרות ש" },
-            { english: "though", type: "Contrast", hebrew: "למרות ש" },
-            { english: "even though", type: "Contrast", hebrew: "למרות ש" },
-            { english: "despite", type: "Contrast", hebrew: "למרות" },
-            { english: "in spite of", type: "Contrast", hebrew: "למרות" },
-            { english: "whereas", type: "Contrast", hebrew: "בעוד ש" },
-            { english: "while", type: "Contrast", hebrew: "בעוד ש" },
-            { english: "on the other hand", type: "Contrast", hebrew: "מצד שני" },
-            { english: "on the contrary", type: "Contrast", hebrew: "להיפך" },
-            { english: "in contrast", type: "Contrast", hebrew: "בניגוד" },
-            { english: "conversely", type: "Contrast", hebrew: "להיפך" },
-            { english: "yet", type: "Contrast", hebrew: "ובכל זאת" },
-            { english: "still", type: "Contrast", hebrew: "עדיין" },
-            
-            // 4. Cause & Effect Connectors
-            { english: "because", type: "Cause & Effect", hebrew: "כי, מפני ש" },
-            { english: "since", type: "Cause & Effect", hebrew: "מאז, מכיוון ש" },
-            { english: "as", type: "Cause & Effect", hebrew: "מכיוון ש" },
-            { english: "therefore", type: "Cause & Effect", hebrew: "לכן" },
-            { english: "thus", type: "Cause & Effect", hebrew: "לפיכך" },
-            { english: "hence", type: "Cause & Effect", hebrew: "מכאן ש" },
-            { english: "so", type: "Cause & Effect", hebrew: "אז, לכן" },
-            { english: "consequently", type: "Cause & Effect", hebrew: "כתוצאה מכך" },
-            { english: "as a result", type: "Cause & Effect", hebrew: "כתוצאה מכך" },
-            { english: "due to", type: "Cause & Effect", hebrew: "בגלל" },
-            { english: "owing to", type: "Cause & Effect", hebrew: "בשל" },
-            { english: "for this reason", type: "Cause & Effect", hebrew: "מסיבה זו" },
-            { english: "that's why", type: "Cause & Effect", hebrew: "זו הסיבה ש" },
-            
-            // 5. Clarifying/Explanation Connectors
-            { english: "in other words", type: "Clarifying", hebrew: "במילים אחרות" },
-            { english: "that is", type: "Clarifying", hebrew: "כלומר" },
-            { english: "that is to say", type: "Clarifying", hebrew: "כלומר" },
-            { english: "namely", type: "Clarifying", hebrew: "דהיינו" },
-            { english: "i.e.", type: "Clarifying", hebrew: "כלומר" },
-            { english: "to clarify", type: "Clarifying", hebrew: "להבהיר" },
-            { english: "to put it another way", type: "Clarifying", hebrew: "במילים אחרות" },
-            { english: "in fact", type: "Clarifying", hebrew: "למעשה" },
-            { english: "actually", type: "Clarifying", hebrew: "למעשה, בעצם" },
-            { english: "specifically", type: "Clarifying", hebrew: "באופן ספציפי" },
-            { english: "for example", type: "Clarifying", hebrew: "לדוגמה" },
-            { english: "for instance", type: "Clarifying", hebrew: "למשל" },
-            { english: "such as", type: "Clarifying", hebrew: "כגון" },
-            { english: "like", type: "Clarifying", hebrew: "כמו" },
-            
-            // 6. Emphasis Connectors
-            { english: "indeed", type: "Emphasis", hebrew: "אכן" },
-            { english: "certainly", type: "Emphasis", hebrew: "בהחלט" },
-            { english: "obviously", type: "Emphasis", hebrew: "ברור ש" },
-            { english: "clearly", type: "Emphasis", hebrew: "ברור ש" },
-            { english: "undoubtedly", type: "Emphasis", hebrew: "ללא ספק" },
-            { english: "in fact", type: "Emphasis", hebrew: "למעשה" },
-            { english: "as a matter of fact", type: "Emphasis", hebrew: "למעשה" },
-            { english: "above all", type: "Emphasis", hebrew: "מעל הכל" },
-            { english: "especially", type: "Emphasis", hebrew: "במיוחד" },
-            { english: "particularly", type: "Emphasis", hebrew: "בפרט" },
-            { english: "notably", type: "Emphasis", hebrew: "במיוחד" },
-            { english: "significantly", type: "Emphasis", hebrew: "באופן משמעותי" },
-            { english: "importantly", type: "Emphasis", hebrew: "באופן חשוב" }
-        ];
+        let selectedAnswers = {};
+        let totalQuestions = 12;
 
-        let currentIndex = 0;
-        let knownCount = 0;
-        let learningCount = 0;
-        let wordsToReview = [];
-        let isFlipped = false;
-
-        function updateScores() {
-            document.getElementById('knownScore').textContent = knownCount;
-            document.getElementById('learningScore').textContent = learningCount;
+        function selectOption(element, answer) {
+            const question = element.closest('.question');
+            const options = question.querySelectorAll('.option');
+            
+            // Remove selected class from all options
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            
+            // Store the answer
+            const questionIndex = Array.from(document.querySelectorAll('.question')).indexOf(question);
+            selectedAnswers[questionIndex] = answer;
+            
+            // Update progress
+            updateProgress();
         }
 
         function updateProgress() {
-            const progress = ((currentIndex) / words.length) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
+            const answered = Object.keys(selectedAnswers).length;
+            const percentage = (answered / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = percentage + '%';
         }
 
-        function showCard() {
-            const cardArea = document.getElementById('cardArea');
-            const word = words[currentIndex];
-            isFlipped = false;
-
-            cardArea.innerHTML = `
-                <div class="card-container">
-                    <div class="flashcard" id="flashcard" onclick="flipCard()">
-                        <div class="card-face card-front">
-                            <div class="word-type">${word.type}</div>
-                            <div class="english-word">${word.english}</div>
-                        </div>
-                        <div class="card-face card-back">
-                            <div class="english-word">${word.english}</div>
-                            <div class="hebrew-translation">${word.hebrew}</div>
-                            <div class="question">Did you know?</div>
-                            <div class="button-group">
-                                <button class="btn btn-yes" onclick="handleResponse(true, event)">Yes ✓</button>
-                                <button class="btn btn-no" onclick="handleResponse(false, event)">No ✗</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flip-hint">👆 Click the card to flip</div>
-            `;
-        }
-
-        function flipCard() {
-            if (!isFlipped) {
-                document.getElementById('flashcard').classList.add('flipped');
-                isFlipped = true;
-            }
-        }
-
-        function handleResponse(knew, event) {
-            event.stopPropagation();
+        function checkAnswers() {
+            let score = 0;
+            const questions = document.querySelectorAll('.question');
             
-            if (knew) {
-                knownCount++;
+            questions.forEach((question, index) => {
+                const correctAnswer = question.getAttribute('data-answer');
+                const feedback = question.querySelector('.feedback');
+                const options = question.querySelectorAll('.option');
+                
+                if (correctAnswer) {
+                    // Part A - Multiple choice
+                    const userAnswer = selectedAnswers[index];
+                    
+                    options.forEach(opt => {
+                        opt.classList.remove('correct', 'incorrect');
+                        const optText = opt.textContent;
+                        
+                        if (optText === correctAnswer) {
+                            opt.classList.add('correct');
+                        }
+                        
+                        if (opt.classList.contains('selected') && optText !== correctAnswer) {
+                            opt.classList.add('incorrect');
+                        }
+                    });
+                    
+                    if (userAnswer === correctAnswer) {
+                        score++;
+                        feedback.className = 'feedback correct';
+                        feedback.textContent = '✓ Correct!';
+                        feedback.style.display = 'block';
+                    } else if (userAnswer) {
+                        feedback.className = 'feedback incorrect';
+                        feedback.textContent = `✗ Incorrect. The correct answer is: ${correctAnswer}`;
+                        feedback.style.display = 'block';
+                    } else {
+                        feedback.className = 'feedback incorrect';
+                        feedback.textContent = `Please select an answer. Correct answer: ${correctAnswer}`;
+                        feedback.style.display = 'block';
+                    }
+                } else {
+                    // Part B - Text input
+                    const textarea = question.querySelector('.input-area');
+                    if (textarea && textarea.value.trim()) {
+                        feedback.className = 'feedback correct';
+                        feedback.textContent = '✓ Answer submitted! Review your use of connectors.';
+                        feedback.style.display = 'block';
+                    } else {
+                        feedback.className = 'feedback incorrect';
+                        feedback.textContent = 'Please write your answer.';
+                        feedback.style.display = 'block';
+                    }
+                }
+            });
+            
+            // Display score
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const scoreText = document.getElementById('scoreText');
+            const scoreMessage = document.getElementById('scoreMessage');
+            
+            scoreText.textContent = `Your Score: ${score}/${totalQuestions}`;
+            
+            if (score === totalQuestions) {
+                scoreMessage.textContent = '🎉 Perfect! You\'re a master of function words!';
+            } else if (score >= totalQuestions * 0.8) {
+                scoreMessage.textContent = '🌟 Excellent work! Just a few more to master!';
+            } else if (score >= totalQuestions * 0.6) {
+                scoreMessage.textContent = '👍 Good job! Keep practicing!';
             } else {
-                learningCount++;
-                wordsToReview.push(words[currentIndex]);
+                scoreMessage.textContent = '💪 Keep learning! Review the material and try again!';
             }
-
-            updateScores();
-            currentIndex++;
-            updateProgress();
-
-            if (currentIndex < words.length) {
-                setTimeout(() => {
-                    showCard();
-                }, 300);
-            } else {
-                setTimeout(() => {
-                    showResults();
-                }, 300);
-            }
+            
+            scoreDisplay.style.display = 'block';
+            
+            // Scroll to score
+            scoreDisplay.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        function showResults() {
-            const cardArea = document.getElementById('cardArea');
-            const percentage = Math.round((knownCount / words.length) * 100);
-
-            let reviewHTML = '';
-            if (wordsToReview.length > 0) {
-                reviewHTML = `
-                    <div class="words-to-review">
-                        <h3 class="review-title">📝 Words to Review (${wordsToReview.length})</h3>
-                        <div class="word-list">
-                            ${wordsToReview.map(word => `
-                                <div class="word-item">
-                                    <div class="english">${word.english} <span style="color: var(--text-light); font-size: 0.85rem;">(${word.type})</span></div>
-                                    <div class="hebrew">${word.hebrew}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            }
-
-            cardArea.innerHTML = `
-                <div class="results-screen">
-                    <h2 class="results-title">🎉 Great Job!</h2>
-                    <div class="results-stats">
-                        <div class="stat-box">
-                            <div class="stat-label">Total Words</div>
-                            <div class="stat-value">${words.length}</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-label">Known</div>
-                            <div class="stat-value" style="color: var(--primary);">${knownCount}</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-label">To Review</div>
-                            <div class="stat-value" style="color: var(--accent);">${learningCount}</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-label">Score</div>
-                            <div class="stat-value" style="color: var(--secondary);">${percentage}%</div>
-                        </div>
-                    </div>
-                    ${reviewHTML}
-                    <button class="btn btn-restart" onclick="restart()">Start Again</button>
-                </div>
-            `;
+        function resetQuiz() {
+            selectedAnswers = {};
+            
+            // Reset all options
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Reset all feedback
+            document.querySelectorAll('.feedback').forEach(fb => {
+                fb.style.display = 'none';
+            });
+            
+            // Reset text areas
+            document.querySelectorAll('.input-area').forEach(textarea => {
+                textarea.value = '';
+            });
+            
+            // Reset progress bar
+            document.getElementById('progressBar').style.width = '0%';
+            
+            // Hide score
+            document.getElementById('scoreDisplay').style.display = 'none';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-
-        function restart() {
-            currentIndex = 0;
-            knownCount = 0;
-            learningCount = 0;
-            wordsToReview = [];
-            updateScores();
-            updateProgress();
-            showCard();
-        }
-
-        // Initialize
-        updateScores();
-        updateProgress();
-        showCard();
     </script>
 </body>
 </html>
